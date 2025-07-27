@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     showAnalysisResults(data);
                     
                     // Show cache status
-                    if (data.cached) {
-                        showNotification('Results loaded from cache (fast!)', 'success');
-                    } else {
+                                    if (data.cached) {
+                    showNotification('Results loaded from cache', 'success');
+                } else {
                         showNotification('Analysis completed! (First time generation)', 'success');
                     }
                 } else {

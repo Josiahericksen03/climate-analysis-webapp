@@ -114,8 +114,23 @@ class ClimateML:
         aligned_data = np.array([v[:min_len] for v in data_by_region.values()])
         scaled = self.scaler.fit_transform(aligned_data)
 
-        kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
-        labels = kmeans.fit_predict(scaled)
+        # Use more features for more stable clustering
+        # Calculate additional features: mean, std, min, max, range
+        features = []
+        for station_data in aligned_data:
+            mean_temp = np.mean(station_data)
+            std_temp = np.std(station_data)
+            min_temp = np.min(station_data)
+            max_temp = np.max(station_data)
+            temp_range = max_temp - min_temp
+            features.append([mean_temp, std_temp, min_temp, max_temp, temp_range])
+        
+        features = np.array(features)
+        scaled_features = self.scaler.fit_transform(features)
+
+        # Use more deterministic clustering
+        kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=20, max_iter=500)
+        labels = kmeans.fit_predict(scaled_features)
 
         return dict(zip(region_names, labels))
 
