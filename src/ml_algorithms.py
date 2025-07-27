@@ -114,7 +114,7 @@ class ClimateML:
         aligned_data = np.array([v[:min_len] for v in data_by_region.values()])
         scaled = self.scaler.fit_transform(aligned_data)
 
-        kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+        kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
         labels = kmeans.fit_predict(scaled)
 
         return dict(zip(region_names, labels))

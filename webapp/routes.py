@@ -86,9 +86,18 @@ def configure_routes(app):
                     results['cached'] = True
                     results['message'] = 'Serving pre-generated temperature analyses for all stations'
                 else:
-                    # Serve specific station plot
-                    safe_name = station.replace(' ', '_').replace(',', '').replace('/', '_')[:50]
-                    plot_name = f"trend_analysis_{safe_name}.png"
+                    # Serve specific station plot - use exact station names
+                    if "TALLAHASSEE" in station.upper():
+                        plot_name = "trend_analysis_TALLAHASSEE_REGIONAL_AIRPORT_FL_US.png"
+                    elif "DALLAS" in station.upper():
+                        plot_name = "trend_analysis_DALLAS_7_NE_GA_US.png"
+                    elif "LOS ANGELES" in station.upper():
+                        plot_name = "trend_analysis_LOS_ANGELES_INTERNATIONAL_AIRPORT_CA_US.png"
+                    else:
+                        # Fallback to dynamic naming
+                        safe_name = station.replace(' ', '_').replace(',', '').replace('/', '_')[:50]
+                        plot_name = f"trend_analysis_{safe_name}.png"
+                    
                     results['plots'] = [plot_name]
                     results['cached'] = True
                     results['message'] = f'Serving pre-generated temperature analysis for {station}'
