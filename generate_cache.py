@@ -7,6 +7,7 @@ Pre-generates all possible analysis plots for instant serving
 import os
 import sys
 import time
+import numpy as np
 from pathlib import Path
 
 # Add src to path
