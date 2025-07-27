@@ -38,10 +38,10 @@ class ClimateVisualizer:
         plt.tight_layout()
         
         if output_path:
-            plt.savefig(output_path, dpi=150, bbox_inches='tight')  # Reduced DPI for memory
+            plt.savefig(output_path, dpi=100, bbox_inches='tight')  # Ultra-reduced DPI for Render
         else:
             safe_title = title.lower().replace(" ", "_").replace(",", "").replace("/", "_")
-            plt.savefig(f"temperature_analysis_{safe_title}.png", dpi=150, bbox_inches='tight')  # Reduced DPI for memory
+            plt.savefig(f"temperature_analysis_{safe_title}.png", dpi=100, bbox_inches='tight')  # Ultra-reduced DPI for Render
         plt.close('all')  # Close all figures to free memory
 
     def plot_cluster_summary(self, station_names: List[str], cluster_ids: List[int], output_path=None) -> None:
@@ -84,9 +84,9 @@ class ClimateVisualizer:
         plt.tight_layout()
         
         if output_path:
-            plt.savefig(output_path, dpi=150, bbox_inches='tight')  # Reduced DPI for memory
+            plt.savefig(output_path, dpi=100, bbox_inches='tight')  # Ultra-reduced DPI for Render
         else:
-            plt.savefig("climate_clusters.png", dpi=150, bbox_inches='tight')  # Reduced DPI for memory
+            plt.savefig("climate_clusters.png", dpi=100, bbox_inches='tight')  # Ultra-reduced DPI for Render
         plt.close('all')  # Close all figures to free memory
 
     def plot_temperature_heatmap(self, data: pd.DataFrame, regions: List[str] = None, times: List[str] = None, title: str = "Average Yearly Temperature by Station", output_path=None):
@@ -108,7 +108,7 @@ class ClimateVisualizer:
         plt.tight_layout()
         
         if output_path:
-            plt.savefig(output_path, dpi=150, bbox_inches='tight')  # Reduced DPI for memory
+            plt.savefig(output_path, dpi=100, bbox_inches='tight')  # Ultra-reduced DPI for Render
         else:
-            plt.savefig("temperature_heatmap.png", dpi=150, bbox_inches='tight')  # Reduced DPI for memory
+            plt.savefig("temperature_heatmap.png", dpi=100, bbox_inches='tight')  # Ultra-reduced DPI for Render
         plt.close('all')  # Close all figures to free memory

@@ -6,6 +6,8 @@ import pandas as pd
 from pathlib import Path
 from flask import render_template, request, jsonify, send_file
 import hashlib
+import gc
+import psutil
 
 # Add parent directory to path to import src modules
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -90,6 +92,9 @@ def configure_routes(app):
                         results['cached'] = True
                     else:
                         results['plots'] = generate_trend_plots(df, ml, visualizer, station)
+                        # Force garbage collection after analysis
+                        gc.collect()
+                        plt.close('all')
                 else:
                     # For specific stations, check if the plot exists
                     safe_name = station.replace(' ', '_').replace(',', '').replace('/', '_')[:30]
@@ -99,6 +104,9 @@ def configure_routes(app):
                         results['cached'] = True
                     else:
                         results['plots'] = generate_trend_plots(df, ml, visualizer, station)
+                        # Force garbage collection after analysis
+                        gc.collect()
+                        plt.close('all')
             elif analysis_type == 'clustering':
                 # Check if clustering plot is cached
                 if is_plot_cached("climate_clusters.png"):
@@ -106,6 +114,9 @@ def configure_routes(app):
                     results['cached'] = True
                 else:
                     results['plots'] = generate_clustering_plots(df, ml, visualizer)
+                    # Force garbage collection after analysis
+                    gc.collect()
+                    plt.close('all')
             
             return jsonify(results)
             

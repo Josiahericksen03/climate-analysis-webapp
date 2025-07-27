@@ -7,3 +7,4 @@ scikit-learn==1.3.0
 tensorflow==2.13.0
 keras==2.13.1
 gunicorn==21.2.0
+psutil==5.9.5
