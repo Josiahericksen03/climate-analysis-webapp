@@ -59,22 +59,22 @@ class ClimateML:
             X, y, test_size=0.2, random_state=42
         )
 
-        # Build LSTM model with ultra-lightweight architecture for Render
+        # Build LSTM model with original architecture
         self.model = Sequential([
-            LSTM(10, activation='relu', input_shape=(seq_length, 1), return_sequences=True),
-            Dropout(0.1),
-            LSTM(10, activation='relu'),
-            Dropout(0.1),
+            LSTM(50, activation='relu', input_shape=(seq_length, 1), return_sequences=True),
+            Dropout(0.2),
+            LSTM(50, activation='relu'),
+            Dropout(0.2),
             Dense(1)
         ])
 
         self.model.compile(optimizer='adam', loss='mse')
 
-        # Train model with minimal epochs for Render
+        # Train model with original epochs
         self.model.fit(
             X_train, y_train,
-            epochs=10,  # Ultra-reduced for Render
-            batch_size=16,  # Smaller batch size
+            epochs=50,  # Original training epochs
+            batch_size=32,
             validation_split=0.1,
             verbose=0
         )

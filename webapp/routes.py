@@ -74,49 +74,29 @@ def configure_routes(app):
                         'message': f'No data found for station: {station}'
                     }), 400
             
-            # Generate visualizations based on analysis type
+            # Serve pre-generated visualizations (cached approach)
             if analysis_type == 'temperature':
-                # Check if plots are already cached
-                cache_key = get_cache_key(station, analysis_type)
-                cached_plots = []
-                
-                # For "All Stations", check if all 3 trend plots exist
                 if station == 'all':
-                    expected_plots = [
+                    # Serve all individual station plots
+                    results['plots'] = [
                         "trend_analysis_TALLAHASSEE_REGIONAL_AIRPORT_FL_US.png",
                         "trend_analysis_DALLAS_7_NE_GA_US.png", 
                         "trend_analysis_LOS_ANGELES_INTERNATIONAL_AIRPORT_CA_US.png"
                     ]
-                    if all(is_plot_cached(plot) for plot in expected_plots):
-                        results['plots'] = expected_plots
-                        results['cached'] = True
-                    else:
-                        results['plots'] = generate_trend_plots(df, ml, visualizer, station)
-                        # Force garbage collection after analysis
-                        gc.collect()
-                        plt.close('all')
-                else:
-                    # For specific stations, check if the plot exists
-                    safe_name = station.replace(' ', '_').replace(',', '').replace('/', '_')[:30]
-                    expected_plot = f"trend_analysis_{safe_name}.png"
-                    if is_plot_cached(expected_plot):
-                        results['plots'] = [expected_plot]
-                        results['cached'] = True
-                    else:
-                        results['plots'] = generate_trend_plots(df, ml, visualizer, station)
-                        # Force garbage collection after analysis
-                        gc.collect()
-                        plt.close('all')
-            elif analysis_type == 'clustering':
-                # Check if clustering plot is cached
-                if is_plot_cached("climate_clusters.png"):
-                    results['plots'] = ["climate_clusters.png"]
                     results['cached'] = True
+                    results['message'] = 'Serving pre-generated temperature analyses for all stations'
                 else:
-                    results['plots'] = generate_clustering_plots(df, ml, visualizer)
-                    # Force garbage collection after analysis
-                    gc.collect()
-                    plt.close('all')
+                    # Serve specific station plot
+                    safe_name = station.replace(' ', '_').replace(',', '').replace('/', '_')[:50]
+                    plot_name = f"trend_analysis_{safe_name}.png"
+                    results['plots'] = [plot_name]
+                    results['cached'] = True
+                    results['message'] = f'Serving pre-generated temperature analysis for {station}'
+                    
+            elif analysis_type == 'clustering':
+                results['plots'] = ["climate_clusters.png"]
+                results['cached'] = True
+                results['message'] = 'Serving pre-generated regional clustering analysis'
             
             return jsonify(results)
             
