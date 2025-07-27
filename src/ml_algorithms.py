@@ -59,11 +59,11 @@ class ClimateML:
             X, y, test_size=0.2, random_state=42
         )
 
-        # Build LSTM model
+        # Build LSTM model with smaller architecture for memory efficiency
         self.model = Sequential([
-            LSTM(50, activation='relu', input_shape=(seq_length, 1), return_sequences=True),
+            LSTM(25, activation='relu', input_shape=(seq_length, 1), return_sequences=True),
             Dropout(0.2),
-            LSTM(50, activation='relu'),
+            LSTM(25, activation='relu'),
             Dropout(0.2),
             Dense(1)
         ])

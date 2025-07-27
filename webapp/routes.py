@@ -252,6 +252,11 @@ def generate_trend_plots(df, ml, visualizer, selected_station='all'):
                 output_path=str(plot_path)
             )
             plots.append(plot_filename)
+            
+            # Clear matplotlib memory after each plot
+            import matplotlib.pyplot as plt
+            plt.close('all')
+            
         except Exception as e:
             print(f"Error generating trend plot for {actual_station_name}: {e}")
             continue
