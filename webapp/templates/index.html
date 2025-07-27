@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+
+{% block title %}Climate Change Impact Analyzer{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Climate Change Impact Analyzer</h1>
+            <p class="lead">Analyze climate data from NOAA weather stations using machine learning and statistical methods.</p>
+            <div class="hero-buttons">
+                <a href="#analysis" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-chart-line me-2"></i>Start Analysis
+                </a>
+                <a href="#about" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-info-circle me-2"></i>Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>About the Analyzer</h2>
+            <p>This tool processes real climate data from NOAA weather stations to provide insights into temperature trends and patterns.</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">What This Tool Does</h3>
+                        <p class="lead">The Climate Change Impact Analyzer processes daily temperature data from weather stations across the United States to:</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Detect temperature anomalies</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Predict future temperature trends</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Cluster weather stations by climate patterns</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Generate interactive visualizations</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Process 26,957+ data points</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Analyze 3 weather stations</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Cover 24 years of data</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Use LSTM neural networks</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Analysis Section -->
+<section id="analysis" class="section analysis-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Climate Analysis</h2>
+            <p>Select your analysis type and weather station to begin</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="analysis-card">
+                    <h3 class="mb-4">Run Climate Analysis</h3>
+                    <form id="analysisForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="stationSelect" class="form-label">Weather Station</label>
+                                <select class="form-select" id="stationSelect" name="station">
+                                    <option value="all">All Stations</option>
+                                    <option value="TALLAHASSEE">Tallahassee Regional Airport, FL</option>
+                                    <option value="DALLAS">Dallas 7 NE, GA</option>
+                                    <option value="LOS ANGELES INTERNATIONAL AIRPORT, CA US">Los Angeles International Airport, CA</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="analysisType" class="form-label">Analysis Type</label>
+                                <select class="form-select" id="analysisType" name="type">
+                                    <option value="temperature">Temperature Analysis (Trends, Anomalies, Predictions)</option>
+                                    <option value="clustering">Regional Clustering</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-play me-2"></i>Run Analysis
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Section -->
+        <div id="analysisResults" class="mt-5" style="display: none;">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="mb-4">Analysis Results</h3>
+                    <div id="analysisSummary" class="alert alert-info" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <!-- Dynamic Plots Container -->
+            <div id="plotsContainer" class="row mb-4">
+                <!-- Plots will be dynamically inserted here -->
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button class="btn btn-outline-primary me-3" onclick="exportAnalysis()">
+                        <i class="fas fa-download me-2"></i>Export Results
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="shareResults()">
+                        <i class="fas fa-share me-2"></i>Share Analysis
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

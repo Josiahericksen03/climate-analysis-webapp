@@ -1,0 +1,32 @@
+climate-analyzer/
+├── data/
+│   └── climate_data.csv                  # Sample or generated dataset
+│
+├── src/                                  # All core functionality
+│   ├── __init__.py
+│   ├── data_processor.py                 # Loading, cleaning, normalization
+│   ├── ml_algorithms.py                  # LSTM prediction, clustering, anomalies
+│   └── visualizer.py                     # Graphs, heatmaps, animation
+│
+├── webapp/                               # Flask app and REST API
+│   ├── __init__.py
+│   ├── app.py                            # Main Flask app
+│   ├── routes.py                         # Route logic (optional split)
+│   ├── templates/
+│   │   ├── index.html                    # Main landing page
+│   │   └── result.html                   # Display results or charts
+│   └── static/                           # (Optional) CSS, JS, images
+│       └── style.css
+│
+├── tests/                                # Unit and integration tests
+│   ├── __init__.py
+│   ├── test_data_processor.py
+│   ├── test_ml_algorithms.py
+│   ├── test_visualizer.py
+│   └── test_integration_pipeline.py
+│
+├── main.py                               # CLI entry point (runs pipeline without web UI)
+├── requirements.txt                      # Project dependencies
+├── README.md                             # Project overview and usage
+├── project_report.pdf                    # Final report (3 pages)
+
